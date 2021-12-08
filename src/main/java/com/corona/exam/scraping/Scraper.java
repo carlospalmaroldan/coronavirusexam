@@ -1,4 +1,4 @@
-package com.corona.exam.scrapping;
+package com.corona.exam.scraping;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,11 +15,14 @@ import java.net.URL;
 
 public class Scraper {
 
+    public static final String HTTPS_WWW_WORLDOMETERS_INFO_CORONAVIRUS = "https://www.worldometers.info/coronavirus/";
+    public static final String TABLE_MAIN_TABLE_COUNTRIES_TODAY = "table#main_table_countries_today";
     Logger logger = LoggerFactory.getLogger(Scraper.class);
 
     public StringBuffer getDataFromUrl() throws IOException {
-        String url = "https://www.worldometers.info/coronavirus/";
+        String url = HTTPS_WWW_WORLDOMETERS_INFO_CORONAVIRUS;
         URL obj = new URL(url);
+
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
         // optional default is GET
@@ -39,14 +42,13 @@ public class Scraper {
             response.append(inputLine);
         }
         in.close();
-        //print result
-        logger.info(response.toString());
+
         return response;
     }
 
     public  String[][] parseTable(StringBuffer response) {
         Document doc = Jsoup.parse(response.toString());
-        Elements tables = doc.select("table#main_table_countries_today");
+        Elements tables = doc.select(TABLE_MAIN_TABLE_COUNTRIES_TODAY);
         String[][] trtd = new String[0][];
         for (Element table : tables) {
             Elements trs = table.select("tr");

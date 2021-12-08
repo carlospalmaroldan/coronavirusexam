@@ -3,7 +3,7 @@ package com.corona.exam.config;
 import com.corona.exam.Processor;
 import com.corona.exam.csv.CsvWriter;
 import com.corona.exam.db.SqliteConnector;
-import com.corona.exam.scrapping.Scraper;
+import com.corona.exam.scraping.Scraper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

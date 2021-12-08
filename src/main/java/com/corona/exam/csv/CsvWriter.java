@@ -1,6 +1,6 @@
 package com.corona.exam.csv;
 
-import com.corona.exam.scrapping.Scraper;
+import com.corona.exam.scraping.Scraper;
 import com.corona.exam.model.Country;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,15 +13,21 @@ public class CsvWriter {
 
     Logger logger = LoggerFactory.getLogger(Scraper.class);
 
-    public void createCsv(String filename, List<Country> countries){
-        logger.info("creating csv file: " + filename);
+    private static String fileName  = "export_%s_%s";
 
-        try(FileWriter fw = new FileWriter(filename + ".csv")){
+    public void createCsv(String region, String date, List<Country> countries){
+        logger.info("creating csv file");
 
+
+        try(FileWriter fw = new FileWriter(String.format(fileName, region, date) + ".csv")){
+            fw.append("COUNTRY, TOTAL_CASES, TOTAL_TESTS, ACTIVE_CASES \n");
             for(Country country : countries){
-                fw.append(country.getRegion() + " , " + country.getName()
-                        + " , " + country.getTotalCases() + " , " + country.getTotalTests()
-                        + " , " + country.getActiveCases());
+                fw.append(country.getRegion())
+                        .append(" , ").append(country.getName())
+                        .append(" , ").append(String.valueOf(country.getTotalCases()))
+                        .append(" , ").append(String.valueOf(country.getTotalTests()))
+                        .append(" , ").append(String.valueOf(country.getActiveCases()))
+                        .append("\n");
             }
 
             logger.info("CSV File is created successfully.");
