@@ -30,7 +30,7 @@ public class CsvWriter {
                         .append("\n");
             }
 
-            logger.info("CSV File is created successfully.");
+            logger.info("CSV File was created successfully.");
 
         } catch (IOException e) {
             logger.error(String.valueOf(e));
